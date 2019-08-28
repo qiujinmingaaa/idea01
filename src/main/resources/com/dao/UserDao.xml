@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.dao.UserDao">
+    <!--findAll-->
+    <select id="fundAll" resultType="user">
+        SELECT * FROM  user
+    </select>
+    
+    <insert id="addUser" parameterType="com.domain.User">
+        INSERT INTO user VALUES (#{id},#{username},#{birthday},#{sex},#{address})
+    </insert>
+    
+    <delete id="deleteUser" parameterType="int">
+        delete from user where id =#{id}
+    </delete>
+    
+    <update id="updateUser" parameterType="com.domain.User">
+        UPDATE user set username=#{username},address=#{address} where id=#{id}
+    </update>
+    <update id="updateUser01" parameterType="map">
+        UPDATE user set username=#{username},address=#{address} where id=#{id}
+    </update>
+
+    <select id="findUserById" resultType="com.domain.User" parameterType="int">
+        SELECT * FROM  user where id=#{id}
+    </select>
+    <select id="findMapById" resultType="map" parameterType="int">
+        SELECT * FROM  user where id=#{id}
+    </select>
+
+    <select id="findUsername" parameterType="int" resultType="string">
+        select username from user where id=#{id}
+    </select>
+    <select id="findCount" resultType="int">
+        SELECT count(*) from user
+    </select>
+    
+    <select id="findUserByName" resultType="useR" parameterType="string">
+        SELECT *FROM user where username LIKE  "%"#{s}"%"
+    </select>
+    <select id="findUserByName01" resultType="User" parameterType="string">
+        SELECT *FROM user where username LIKE  '%${value}%'
+    </select>
+
+    <select id="findUserByName02" resultType="User_Simple" parameterType="string">
+        SELECT id user_id,username user_name FROM user where username LIKE  "%"#{ss}"%"
+    </select>
+</mapper>
